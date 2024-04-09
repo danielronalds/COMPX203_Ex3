@@ -11,6 +11,15 @@ checkReceiveReady:
 
 lw      $2, 0x70001($0)
 
+# Filtering out non-lowercase characters
+sgei    $3, $2, 'a'
+slei    $4, $2, 'z'
+and     $5, $3, $4
+
+bnez    $5, checkTransmitReady
+# Overwriting with * if not lowercase
+addi    $2, $0, '*'
+
 # Sending it back
 checkTransmitReady:
         lw      $1, 0x70003($0)
