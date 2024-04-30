@@ -11,3 +11,8 @@ compile_1:
 compile_2:
   wasm ex3_q2.s
   wlink -o ex3_q2.srec ex3_q2.o
+
+# Compiles and link the third question srec
+compile_3:
+  wasm ex3_q3.s
+  wlink -o ex3_q3.srec ex3_q3.o
