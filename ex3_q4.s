@@ -17,10 +17,10 @@ serialJob:
         checkReceiveReady:
                 lw      $1, 0x70003($0)
                 andi    $1, $1, 0x1
-                bnez    $1, characterRecieved
-                jr      $ra
+                bnez    $1, recieveReady
+                j       exitSerialJob
         
-        characterRecieved:
+        recieveReady:
         lw      $2, 0x70001($0)
         
         # Filtering out non-lowercase characters
@@ -36,18 +36,18 @@ serialJob:
         checkTransmitReady:
                 lw      $1, 0x70003($0)
                 andi    $1, $1, 0x2
-                benz    $1, transmitReady
-                jr      $ra
+                beqz    $1, checkTransmitReady
         
-        transmitReady:
         sw      $2, 0x70000($0)
         
-        
+
+        exitSerialJob:
         lw      $2, 0($sp)
         lw      $3, 1($sp)
         lw      $4, 2($sp)
         lw      $5, 3($sp)
         addui   $sp, $sp, 4
+
         jr      $ra
 
 parallelJob:
@@ -60,7 +60,7 @@ parallelJob:
         checkButtonPressed:
                 lw      $4, 0x73001($0)
                 bnez    $4, buttonPressed
-                jr      $ra
+                j       exitParallelJob
         
         buttonPressed:
         # Loading the values of the Buttons in
@@ -113,10 +113,12 @@ parallelJob:
                 subi    $5, $5, 1
                 bnez    $5, writeSsdLoop
 
+        exitParallelJob:
         lw      $2, 0($sp)
         lw      $3, 1($sp)
         lw      $4, 2($sp)
         lw      $5, 3($sp)
         addui   $sp, $sp, 4
+
         jr      $ra
 
