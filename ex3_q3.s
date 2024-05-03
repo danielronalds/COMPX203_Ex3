@@ -21,8 +21,7 @@ main:
         j displayRegisters                     # Then display the registers
         
         buttonOneNotPressed:
-        
-        beqz    $3, displayRegisters           # If button three is pressed, Just display the registers
+        beqz    $3, displayRegisters           # If button two is pressed, Just display the registers
         jr $ra                                 # If button two is pressed, Exit gracefully
         
         displayRegisters:

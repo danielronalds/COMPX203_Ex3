@@ -15,6 +15,8 @@ main:
         and     $5, $3, $4                      # c > a && c < z -> c == Lowercase char
         bnez    $5, checkTransmitReady          # Send the char with no modification if its lowercase
         addi    $2, $0, '*'                     # Censor the char if it's not lowercase, then transmit
+
+        # Sending the processed character
         checkTransmitReady:
                 lw      $1, 0x70003($0)
                 andi    $1, $1, 0x2             # The transmit ready flag is second bit

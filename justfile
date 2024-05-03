@@ -6,7 +6,7 @@ compile_all:
     @just compile_1
     @just compile_2
     @just compile_3
-    @just compile_1
+    @just compile_4
 
 # Compiles and link the first question srec
 compile_1:
